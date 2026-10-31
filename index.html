@@ -194,51 +194,8 @@
         }
     }
 </style>
-<style>
-    /* Pełnoekranowa nakładka przyklejona do ekranu */
-    #pelny-ekran-kontener {
-        display: none; /* Domyślnie ukryte */
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: #ffffff; /* Tło nakładki (możesz zmienić np. na #000000) */
-        z-index: 999999; /* Zawsze na samym wierzchu */
-        overflow-y: auto; /* Przewijanie wewnątrz nakładki, jeśli treść jest długa */
-    }
-
-    /* Przycisk zamykania (krzyżyk) w rogu */
-    .przycisk-zamknij {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        font-size: 18px;
-        background: #ff4d4d;
-        color: white;
-        border: none;
-        padding: 10px 16px;
-        border-radius: 50px;
-        cursor: pointer;
-        z-index: 1000000;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        font-weight: bold;
-    }
-
-    /* Blokada przewijania tła */
-    body.zablokowany-skroll {
-        overflow: hidden !important;
-        height: 100vh !important;
-    }
-</style>
 </head>
 <body class="">
-    <!-- Pełnoekranowa nakładka na treść -->
-<div id="pelny-ekran-kontener">
-    <div id="zawartosc-nakladki"></div>
-</div>
     <header>
         <a href="dashboard.html">
             <img src="../dowod_files/pozdro.svg" alt="leftarrow">
@@ -357,10 +314,10 @@
             <img src="../images/ac001_services.svg" alt="services">
             <span>Usługi</span>
         </div>
-        <div class="BottomNav_btnTab_wzkWH" onclick="otworzNaCalejStronie('qr.html')">
-    <img src="../images/ai001_scanner_qr.svg" alt="qr">
-    <span id="kod QR">kod QR</span>
-</div>
+        <div class="BottomNav_bnTab__WzkWH" onclick="window.location.href='qr.html'">
+            <img src="../images/ai001_scanner_qr.svg" alt="qr">
+            <span id="">Kod QR</span>
+        </div>
         <div class="BottomNav_bnTab__WzkWH">
             <img src="../images/ab010_more.svg" alt="more">
             <span class="BottomNav_activeText__6iAIF">Więcej</span>
@@ -513,53 +470,5 @@
         closeIcon.addEventListener('click', () => {
             blueSection.style.display = 'none';
         });
-      function otworzNaCalejStronie(plik) {
-        fetch(plik)
-            .then(response => {
-                if (!response.ok) throw new Error('Nie udało się wczytać strony');
-                return response.text();
-            })
-            .then(html => {
-                // Wklejamy treść strony do nakładki
-                document.getElementById('zawartosc-nakladki').innerHTML = html;
-                
-                // Pokazujemy nakładkę na pełny ekran
-                document.getElementById('pelny-ekran-kontener').style.display = 'block';
-                
-                // Blokujemy przewijanie strony głównej
-                document.body.classList.add('zablokowany-skroll');
-                
-                // Ukrywamy elementy główne (header, footer oraz Twoje dolne menu .BottomNav)
-                let header = document.querySelector('header');
-                let footer = document.querySelector('footer');
-                let bottomNav = document.querySelector('.BottomNav_btnTab_wzkWH').closest('div'); // lub dopasuj klasę swojego paska nawigacji
-                
-                if (header) header.style.display = 'none';
-                if (footer) footer.style.display = 'none';
-                
-                // Jeśli chcesz ukryć cały pasek menu na dole, wstaw tutaj selektor swojego paska, np:
-                // let dolneMenu = document.querySelector('.nazwa-klasy-twojego-paska');
-                // if (dolneMenu) dolneMenu.style.display = 'none';
-            })
-            .catch(error => {
-                console.error('Błąd:', error);
-            });
-    }
-
-    function zamknijPelnyEkran() {
-        // Ukrywamy nakładkę i czyszczymy zawartość
-        document.getElementById('pelny-ekran-kontener').style.display = 'none';
-        document.getElementById('zawartosc-nakladki').innerHTML = '';
-        
-        // Odblokowujemy przewijanie strony głównej
-        document.body.classList.remove('zablokowany-skroll');
-        
-        // Przywracamy widoczność elementom głównym
-        let header = document.querySelector('header');
-        let footer = document.querySelector('footer');
-        
-        if (header) header.style.display = '';
-        if (footer) footer.style.display = '';
-    }
 	</script>
 </body></html>
